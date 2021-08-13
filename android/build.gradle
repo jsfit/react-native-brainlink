@@ -31,6 +31,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
+    implementation 'com.facebook.react:react-native:+'
+    implementation files('libs/MacrotellectLink_V1.1')
+
 }
   
