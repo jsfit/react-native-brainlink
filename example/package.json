@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "move": "mv react-native-brainlink-*.tgz react-native-brainlink.tgz",
+    "preinstall": "npm pack ../ && npm run move",
+    "postinstall": "rm react-native-brainlink.tgz"
   },
   "dependencies": {
     "react": "17.0.1",
@@ -21,7 +24,8 @@
     "eslint": "7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
-    "react-test-renderer": "17.0.1"
+    "react-test-renderer": "17.0.1",
+    "react-native-brainlink":  "file:./react-native-brainlink.tgz"
   },
   "jest": {
     "preset": "react-native"
