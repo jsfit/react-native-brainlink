@@ -118,7 +118,6 @@ public class BrainlinkModule extends ReactContextBaseJavaModule {
         callback.invoke(false);
       } else {
         callback.invoke(true);
-
       }
     } catch (Exception e) {
       e.printStackTrace();

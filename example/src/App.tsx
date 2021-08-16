@@ -8,12 +8,24 @@ const eventEmitter = new NativeEventEmitter(Brainlink);
 
 export default function App() {
   const [result, setResult] = React.useState<any>();
+  const resultRef = React.useRef(result)
+  resultRef.current = result
+
 
   React.useEffect(() => {
+    Brainlink.isBluetoothOn((res: boolean) => {
+      console.log("isBluetoothOn", res)
+    })
 
     Brainlink.start();
-    eventEmitter.addListener('Connection', setResult);
+    eventEmitter.addListener('Connection', (r => {
+      if (resultRef.current?.state != r.state) {
+        setResult(r)
+      }
+    }));
+
   }, []);
+
 
   return (
     <View style={styles.container}>
