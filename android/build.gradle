@@ -54,5 +54,8 @@ repositories {
 
 dependencies {
     //noinspection GradleDynamicVersion
+    implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
+    implementation files('libs/libStreamSDK_v1.2.0.jar')
+    implementation files('libs/MacrotellectLink_V1.1')
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
