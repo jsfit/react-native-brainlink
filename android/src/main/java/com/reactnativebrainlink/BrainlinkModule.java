@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
@@ -46,6 +47,7 @@ public class BrainlinkModule extends ReactContextBaseJavaModule {
 
   private BluetoothAdapter mBluetoothAdapter;
   private String connection = "Waiting!";
+  private String devices = "BrainLink,BrainLink_Lite,BrainLink_Pro,Brainlink_Pro";
   private OnConnectListener onConnectListener;
   private EEGPowerDataListener eegPowerDataListener;
   private LinkManager bluemanage = null;
@@ -86,7 +88,6 @@ public class BrainlinkModule extends ReactContextBaseJavaModule {
     final Map<String, Object> constants = new HashMap<>();
     return constants;
   }
-
 
 
   private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -155,15 +156,19 @@ public class BrainlinkModule extends ReactContextBaseJavaModule {
     mBluetoothAdapter.startDiscovery();
   }
 
+  @ReactMethod
+    public void setDevice(String device) {
+    if (device != "") {
+      devices = device;
+    }
+  }
 
   @ReactMethod
   public void start() {
-
     if (!isScanStarted) {
       initBlueManager();
     }
   }
-
 
   @ReactMethod
   public void stop() {
@@ -270,16 +275,8 @@ public class BrainlinkModule extends ReactContextBaseJavaModule {
 
     bluemanage.setMaxConnectSize(1);
     bluemanage.setConnectType(LinkManager.ConnectType.ALLDEVICE);
-    bluemanage.setWhiteList("BrainLink,BrainLink_Lite,BrainLink_Pro,Brainlink_Pro");
+    bluemanage.setWhiteList(devices);
     bluemanage.startScan();
     isScanStarted = true;
   }
-
-
-  @ReactMethod
-  public void multiply(int a, int b, Promise promise) {
-    promise.resolve(a * b);
-  }
-
-  public static native int nativeMultiply(int a, int b);
 }
